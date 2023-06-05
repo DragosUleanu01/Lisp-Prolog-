@@ -1,0 +1,20 @@
+;Uleanu Dragos Florin
+;Nr 1
+
+
+;Model_Matematic: suma3(l1,l2,l3,...) = { 0 , daca lista este vida}
+;                                     = { l1 + suma3(l2,l3,...), indiferent de situatie}
+;                                     
+
+
+
+(defun suma32(lista)
+    (COND
+    ((null lista) 0)
+    ((listp(car lista)) (+(suma32(car lista)) (suma32(cdr lista)))  )
+    (T (+(car lista) (suma32 (cdr lista) ) ))
+    
+  )
+)
+
+(write(suma32'(1 (2 3 )4 5 12)))

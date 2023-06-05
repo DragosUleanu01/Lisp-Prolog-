@@ -1,0 +1,71 @@
+;Uleanu Dragos-Florin 4LF302
+
+;a) Se da o lista liniara. Eliminati din lista toate elementele de la N la N, N fiind dat
+
+
+; Model Matematic: elim(l1,l2,l3... , N) = { nil, daca lista nu are elemente}
+;                                          { elim_pozitie(l1,l2,l3,l4, N, 1), daca nu}
+
+; elim_pozitie(l1,l2,l3,l4... , N, poz) = { nil, daca lista nu are elemente}
+;                                         {elim_pozitie(l2,l3,l4...N, 1) daca poz este div cu N}
+;                                         {elim_pozitie(l2,l3,l4....N, (1+poz)%N) in cazul default}
+
+
+(defun elim (lista N)
+  ;elimina al N-lea element din lista
+    (elim_pozitie lista N 1)
+)
+
+(defun elim_pozitie (lista N poz)
+  ;elimina al N-lea element tinand minte pozitia
+    (cond ((eql lista nil) nil)
+          ((= (mod poz N) 0) (elim_pozitie(cdr lista) N 1))
+          (t (cons (car lista) (elim_pozitie (cdr lista) N (mod (1+ poz) N))))
+    )
+)
+
+(write (elim '(1 2 3 4 5 6) '2))
+
+
+;b) Scrieti o functie pentru a testa daca o lista liniara de numere intregi are un aspect de 'vale'. O lista trebuie sa aiba cel putin 3 elemente pentru a indeplini aceasta conditie
+
+
+
+
+
+
+
+
+
+
+;c)Construiti o functie care calculeaza minimul dintr-o lista, la orice nivel (se vor lua in considerare si elem 
+; din subliste)
+
+; Model Matematic:
+; minim(l1,l2,l3,l4...): { nil, daca lista este goala}
+;                        { l1, daca lista are doar un element l1}
+;                        { l1, daca l1<l2}
+;                        { l2, daca l2 =< l1}
+
+
+(defun minim (lista)
+
+ (cond
+
+       ((null lista)                      ; lista e goala
+        nil)
+
+       ((null (rest lista))               ; doar un element
+        (first lista))
+
+       ((< (first lista) (second lista))   ; daca primul element e mai mic decat al doilea
+        (minim (cons (first lista)      ; apel de primul fara al doilea 
+                       (rest (rest lista)))))
+
+       (t                                ; al doilea e egal sau mai mic
+        (minim (rest lista)))))         ; apel fara primul
+        
+        
+(write(minim '(1 2 3 4 5 6)))
+
+;d) Scrieti o functie care sterge dintr-o lista liniara toate aparitiile elementului maxim
